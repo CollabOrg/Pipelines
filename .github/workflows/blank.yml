@@ -7,15 +7,16 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-  steps:
-    # Checkout code
-    - uses: actions/checkout@v2
     
-    # Docker login
-    -
-      name: Login To Docker
-      uses: docker/login-action@1.10.0
-      with:
-        registry: ${{ github.event.repository.name }}
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v2
+
+      # Docker login
+      -
+        name: Login To Docker
+        uses: docker/login-action@1.10.0
+        with:
+          registry: ${{ github.event.repository.name }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
