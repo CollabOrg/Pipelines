@@ -43,4 +43,5 @@ jobs:
     steps:
     -
       name: Deploy Changes
-      run: echo $ {{ secrets.DOCKER_REPO }}
+      run: echo ${{ secrets.DOCKER_REPO }}
+      run: echo ${{secrets.DOMAIN}}
