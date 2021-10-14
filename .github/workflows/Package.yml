@@ -35,3 +35,11 @@ jobs:
       -
         name: Image Digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+  deploy:
+    runs-on: self-hosted,deployer
+    
+    steps:
+    -
+      name: Deploy Changes
+      run: echo $ {{ secrets.DOCKER_REPO }}
