@@ -1,9 +1,14 @@
 name: Package
 
 on:
-  push:
-    branches: [ main ]
-
+  workflow_call:
+    inputs:
+      domain:
+        required: true
+        type: string
+      docker_repo:
+        required: true
+        type: string
 jobs:
   build:
     runs-on: self-hosted
@@ -29,7 +34,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_REPO }}
+          tags: ${{ inputs.docker_repo }}
       
       # Display new image tag
       -
@@ -54,7 +59,7 @@ jobs:
     -
       name: Deploy Changes
       run: |
-        docker image pull ${{ secrets.DOCKER_REPO }}
+        docker image pull ${{ secrets.docker_repo }}
         docker kill ${{ secrets.DOMAIN }}
-        docker container rm ${{ secrets.DOMAIN }}
-        docker run -d --name ${{ secrets.DOMAIN }} -e VIRTUAL_HOST=${{ secrets.DOMAIN }} -e LETSENCRYPT_HOST=${{ secrets.DOMAIN }} ${{ secrets.DOCKER_REPO }}
+        docker container rm ${{ secrets.domain }}
+        docker run -d --name ${{ secrets.domain }} -e VIRTUAL_HOST=${{ secrets.domain }} -e LETSENCRYPT_HOST=${{ secrets.domain }} ${{ secrets.docker_repo }}
