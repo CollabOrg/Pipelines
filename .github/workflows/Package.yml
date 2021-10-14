@@ -12,7 +12,7 @@ on:
       container_port:
         required: false
         default: 80
-        type: number
+        type: string
     secrets:
       DOCKER_USERNAME:
         required: true
