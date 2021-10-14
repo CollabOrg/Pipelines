@@ -9,6 +9,10 @@ on:
       docker_repo:
         required: true
         type: string
+      container_port:
+        required: false
+        default: 80
+        type: number
     secrets:
       DOCKER_USERNAME:
         required: true
@@ -65,4 +69,4 @@ jobs:
       name: Deploy Changes
       run: |
         docker image pull ${{ inputs.docker_repo }} 2>&1
-        docker run --rm -d --name ${{ inputs.domain }} -e VIRTUAL_HOST=${{ inputs.domain }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
+        docker run --rm -d --name ${{ inputs.domain }} -e VIRTUAL_HOST=${{ inputs.domain }} -e VIRTUAL_PORT=${ inputs.container_port }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
