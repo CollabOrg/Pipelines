@@ -9,6 +9,11 @@ on:
       docker_repo:
         required: true
         type: string
+    secrets:
+      DOCKER_USER:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
 jobs:
   build:
     runs-on: self-hosted
