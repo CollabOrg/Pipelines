@@ -37,7 +37,7 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
         
   deploy:
-    runs-on: self-hosted,deployer
+    runs-on: [self-hosted,deployer]
     
     steps:
     -
