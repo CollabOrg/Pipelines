@@ -64,7 +64,7 @@ jobs:
     -
       name: Deploy Changes
       run: |
-        docker image pull ${{ inputs.docker_repo }}
-        docker kill ${{ inputs.DOMAIN }}
-        docker container rm ${{ inputs.domain }}
+        docker image pull ${{ inputs.docker_repo }} 2>&1
+        docker kill ${{ inputs.DOMAIN }} 2>&1
+        docker container rm ${{ inputs.domain }} 2>&1
         docker run -d --name ${{ inputs.domain }} -e VIRTUAL_HOST=${{ inputs.domain }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
