@@ -20,7 +20,7 @@ on:
         required: true
 jobs:
   build:
-    runs-on: self-hosted,builder
+    runs-on: [self-hosted,builder]
     
     steps:
       # Checkout code
