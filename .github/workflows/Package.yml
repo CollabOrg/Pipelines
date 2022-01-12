@@ -13,6 +13,10 @@ on:
         required: false
         default: 80
         type: string
+      container_path:
+        required: false
+        default: /
+        type: string
     secrets:
       DOCKER_USERNAME:
         required: true
@@ -70,4 +74,4 @@ jobs:
       run: |
         docker image pull ${{ inputs.docker_repo }} 2>&1
         docker stop ${{ inputs.domain }} || true && docker rm ${{ inputs.domain }} || true
-        docker run -d --restart=always --memory=256m --name ${{ inputs.domain }} -e VIRTUAL_HOST=${{ inputs.domain }} -e VIRTUAL_PORT=${{ inputs.container_port }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
+        docker run -d --restart=always --memory=256m --name ${{ inputs.domain }} -e VIRTUAL_HOST=${{ inputs.domain }} -e VIRTUAL_PATH=${{ inputs.container_path }} -e VIRTUAL_PORT=${{ inputs.container_port }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
