@@ -71,7 +71,9 @@ jobs:
     # Update and deploy changes
     -
       name: Deploy Changes
+      env: 
+        container_name: ${{inputs.container_path}}
       run: |
         docker image pull ${{ inputs.docker_repo }} 2>&1
         docker stop ${{ inputs.domain }} || true && docker rm ${{ inputs.domain }} || true
-        docker run -d --restart=always --memory=256m --name ${{ inputs.domain }}${inputs.container_path///-} -e VIRTUAL_HOST=${{ inputs.domain }} -e VIRTUAL_PATH=${{ inputs.container_path }} -e VIRTUAL_PORT=${{ inputs.container_port }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
+        docker run -d --restart=always --memory=256m --name ${{ inputs.domain }}$(echo $container_name |  sed 's/\///') -e VIRTUAL_HOST=${{ inputs.domain }} -e VIRTUAL_PATH=${{ inputs.container_path }} -e VIRTUAL_PORT=${{ inputs.container_port }} -e LETSENCRYPT_HOST=${{ inputs.domain }} ${{ inputs.docker_repo }}
